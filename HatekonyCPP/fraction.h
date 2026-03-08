@@ -42,10 +42,12 @@ public:
 	{
 		return numerator / static_cast<int>(denominator);
 	}
+
 	explicit operator double() const
 	{
-		return static_cast<double>(numerator) / denominator;
+		return static_cast<double>(numerator) / static_cast<double>(denominator);
 	}
+
 	explicit operator bool() const
 	{
 		return numerator >= denominator;

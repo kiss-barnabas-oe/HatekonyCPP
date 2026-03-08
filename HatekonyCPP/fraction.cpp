@@ -18,17 +18,11 @@ Fraction::Fraction(const int numerator, const int denominator)
 
 Fraction::Fraction(const double number)
 {
-	double numerator = number;
-	int denominator = 1;
-	double intPart;
+	const int precision = 1000000;
+	int num = static_cast<int>(std::round(number * precision));
+	int den = precision;
 
-	while (std::modf(numerator, &intPart) != 0.0)
-	{
-		numerator *= 10;
-		denominator *= 10;
-	}
-
-	*this = Fraction(static_cast<int>(numerator), denominator);
+	*this = Fraction(num, den);
 }
 
 Fraction::~Fraction()
@@ -233,7 +227,29 @@ std::ostream& operator<<(std::ostream& os, const Fraction& other)
 
 std::istream& operator>>(std::istream& is, Fraction& other)
 {
-	is >> other.numerator;
-	is >> other.denominator;
+	std::string s;
+	is >> s;
+
+	if (s.find('.') != std::string::npos)
+	{
+		other = Fraction(std::stod(s));
+	}
+	else if (s.find('/') != std::string::npos)
+	{
+		int num = std::stoi(s.substr(0, s.find('/')));
+		int den = std::stoi(s.substr(s.find('/') + 1));
+		other = Fraction(num, den);
+	}
+	else
+	{
+		int num = std::stoi(s);
+		int den;
+
+		if (is >> den)
+			other = Fraction(num, den);
+		else
+			other = Fraction(num, 1);
+	}
+
 	return is;
 }
