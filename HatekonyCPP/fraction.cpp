@@ -188,6 +188,21 @@ bool Fraction::operator>=(const Fraction& other) const
 	return temp <= *this;
 }
 
+Fraction::operator int() const
+{
+	return numerator / static_cast<int>(denominator);	
+}
+
+Fraction::operator double() const
+{
+	return static_cast<double>(numerator) / static_cast<double>(denominator);
+}
+
+Fraction::operator bool() const
+{
+	return numerator > 0;
+}
+
 std::ostream& operator<<(std::ostream& os, const Fraction& other)
 {
 	if (other.denominator == 1)
