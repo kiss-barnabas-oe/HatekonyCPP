@@ -54,7 +54,7 @@ public:
 
 private:
 	int numerator;
-	size_t denominator;
+	unsigned int denominator;
 };
 
 Fraction operator+(const Fraction& a, const Fraction& b);
