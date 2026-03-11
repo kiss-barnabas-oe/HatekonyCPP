@@ -5,15 +5,15 @@
 #include <numeric>
 
 Fraction::Fraction(const int numerator, const int denominator)
+	: numerator(numerator)
+	, denominator(denominator)
 {
 	if (denominator == 0)
 		throw std::invalid_argument("Denominator can't be 0.");
 
 	if (denominator < 0)
 		throw std::invalid_argument("Denominator can't be below 0.");
-
-	this->numerator = numerator;
-	this->denominator = denominator;
+	
 	SimplestForm();
 }
 
