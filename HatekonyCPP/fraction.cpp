@@ -2,6 +2,7 @@
 #include <string>
 #include "fraction.h"
 #include <cmath>
+#include <numeric>
 
 Fraction::Fraction(const int numerator, const int denominator)
 {
@@ -29,13 +30,7 @@ Fraction& Fraction::SimplestForm()
 {
 	if (numerator == 0)
 		return *this;
-	int res = std::min(std::abs(numerator), static_cast<int>(denominator));
-	while (res > 1)
-	{
-		if (numerator % res == 0 && denominator % res == 0)
-			break;
-		res--;
-	}
+	int res = std::gcd(numerator, denominator);
 	if (res > 1)
 	{
 		std::cout << this->ToString() << " fraction simplified by " << res << std::endl;
