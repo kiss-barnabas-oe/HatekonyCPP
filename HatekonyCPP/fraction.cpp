@@ -18,7 +18,7 @@ Fraction::Fraction(const int numerator, const int denominator)
 }
 
 Fraction::Fraction(const double number)
-	: numerator(std::round(number * 1000000))
+	: numerator(static_cast<int>(std::round(number * 1000000)))
 	, denominator(1000000)
 {	
 	SimplestForm();
