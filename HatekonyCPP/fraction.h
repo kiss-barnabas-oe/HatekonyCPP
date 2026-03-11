@@ -49,7 +49,7 @@ public:
 
 	explicit operator bool() const
 	{
-		return numerator >= denominator;
+		return numerator > 0;
 	}
 
 private:

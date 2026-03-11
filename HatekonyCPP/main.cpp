@@ -94,9 +94,9 @@ int main()
         std::cout << "1/5 is larger than 1/10" << std::endl;
     }
 
-    Fraction booltest(15, 10);
+    Fraction booltest(1, 10);
     if (booltest)
-        std::cout << booltest << " is larger than 1" << std::endl;
+        std::cout << booltest << " is larger than 0" << std::endl;
 
     Fraction inttest = static_cast<int>(booltest);
     std::cout << inttest << " = " << booltest << std::endl;
