@@ -224,6 +224,8 @@ std::istream& operator>>(std::istream& is, Fraction& other)
 {
 	std::string s;
 	is >> s;
+	int num = 1;
+	int den = 1;
 
 	if (s.find('.') != std::string::npos)
 	{
@@ -231,20 +233,16 @@ std::istream& operator>>(std::istream& is, Fraction& other)
 	}
 	else if (s.find('/') != std::string::npos)
 	{
-		int num = std::stoi(s.substr(0, s.find('/')));
-		int den = std::stoi(s.substr(s.find('/') + 1));
-		other = Fraction(num, den);
+		num = std::stoi(s.substr(0, s.find('/')));
+		den = std::stoi(s.substr(s.find('/') + 1));		
 	}
 	else
 	{
-		int num = std::stoi(s);
-		int den;
+		num = std::stoi(s);		
 
-		if (is >> den)
-			other = Fraction(num, den);
-		else
-			other = Fraction(num, 1);
+		if (!(is >> den))
+			den = 1;
 	}
-
+	other = Fraction(num, den);
 	return is;
 }
