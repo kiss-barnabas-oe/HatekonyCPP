@@ -18,12 +18,10 @@ Fraction::Fraction(const int numerator, const int denominator)
 }
 
 Fraction::Fraction(const double number)
-{
-	const int precision = 1000000;
-	int num = static_cast<int>(std::round(number * precision));
-	int den = precision;
-
-	*this = Fraction(num, den);
+	: numerator(std::round(number * 1000000))
+	, denominator(1000000)
+{	
+	SimplestForm();
 }
 
 Fraction& Fraction::SimplestForm()
