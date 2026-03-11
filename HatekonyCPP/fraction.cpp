@@ -33,7 +33,7 @@ Fraction& Fraction::SimplestForm()
 	int res = std::gcd(numerator, denominator);
 	if (res > 1)
 	{
-		std::cout << this->ToString() << " fraction simplified by " << res << std::endl;
+		std::cout << *this << " fraction simplified by " << res << std::endl;
 		numerator /= res;
 		denominator /= res;
 	}
@@ -48,17 +48,6 @@ int Fraction::GetDenominator() const
 int Fraction::GetNumerator() const
 {
 	return this->numerator;
-}
-
-std::string Fraction::ToString() const
-{
-	if (denominator == 1)
-		return std::to_string(numerator);
-	std::string s = "";
-	s += std::to_string(numerator);
-	s += "/";
-	s += std::to_string(denominator);
-	return s;
 }
 
 Fraction Fraction::operator+(const int number)
@@ -211,7 +200,10 @@ bool Fraction::operator>=(const Fraction& other)
 
 std::ostream& operator<<(std::ostream& os, const Fraction& other)
 {
-	os << other.ToString();
+	if (other.denominator == 1)
+		os << std::to_string(other.numerator);	
+	else
+		os << std::to_string(other.numerator) << "/" << std::to_string(other.denominator);
 	return os;
 }
 

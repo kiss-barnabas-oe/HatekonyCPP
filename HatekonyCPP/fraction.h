@@ -5,9 +5,7 @@ public:
 	Fraction(const int numerator, const int denominator = 1);
 	Fraction(const double number);
 	Fraction& SimplestForm();
-
-	std::string ToString() const;
-
+	
 	Fraction operator+(const int number);
 	Fraction operator-(const int number);
 	Fraction operator*(const int number);
