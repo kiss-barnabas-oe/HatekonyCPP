@@ -25,11 +25,6 @@ Fraction::Fraction(const double number)
 	*this = Fraction(num, den);
 }
 
-Fraction::~Fraction()
-{
-
-}
-
 Fraction& Fraction::SimplestForm()
 {
 	if (numerator == 0)

@@ -4,7 +4,6 @@ class Fraction {
 public:
 	Fraction(const int numerator, const int denominator = 1);
 	Fraction(const double number);
-	~Fraction();
 	Fraction& SimplestForm();
 
 	std::string ToString() const;
