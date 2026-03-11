@@ -40,16 +40,6 @@ Fraction& Fraction::SimplestForm()
 	return *this;
 }
 
-int Fraction::GetDenominator() const
-{
-	return this->denominator;
-}
-
-int Fraction::GetNumerator() const
-{
-	return this->numerator;
-}
-
 Fraction Fraction::operator+(const int number)
 {
 	Fraction temp(this->numerator + number * denominator, denominator);
@@ -105,8 +95,8 @@ Fraction& Fraction::operator/=(const int number)
 
 Fraction Fraction::operator+(const Fraction& other)
 {
-	const int commonGround = this->denominator * other.GetDenominator();
-	const int tempnum = this->numerator * commonGround / this->denominator + other.GetNumerator() * commonGround / other.GetDenominator();
+	const int commonGround = this->denominator * other.denominator;
+	const int tempnum = this->numerator * commonGround / this->denominator + other.numerator * commonGround / other.denominator;
 	Fraction temp(tempnum, commonGround);
 	temp.SimplestForm();
 	return temp;
@@ -133,7 +123,7 @@ Fraction& Fraction::operator-=(const Fraction& other)
 
 Fraction Fraction::operator*(const Fraction& other)
 {
-	Fraction temp(this->numerator * other.GetNumerator(), this->denominator * other.GetDenominator());
+	Fraction temp(this->numerator * other.numerator, this->denominator * other.denominator);
 	temp.SimplestForm();
 	return temp;
 }
@@ -146,7 +136,7 @@ Fraction& Fraction::operator*=(const Fraction& other)
 
 Fraction Fraction::operator/(const Fraction& other)
 {
-	Fraction temp(other.GetDenominator(), other.GetNumerator());
+	Fraction temp(other.denominator, other.numerator);
 	return operator*(temp);
 }
 
@@ -163,16 +153,16 @@ bool Fraction::operator!=(const Fraction& other) const
 
 bool Fraction::operator==(const Fraction& other) const
 {
-	if (this->numerator == other.GetNumerator() && this->denominator == other.GetDenominator())
+	if (this->numerator == other.numerator && this->denominator == other.denominator)
 		return true;
 	return false;
 }
 
 bool Fraction::operator<(const Fraction& other) const
 {
-	const int commonGround = this->denominator * other.GetDenominator();
+	const int commonGround = this->denominator * other.denominator;
 	const int tempnuma = this->numerator * commonGround / this->denominator;
-	const int tempnumb = other.GetNumerator() * commonGround / other.GetDenominator();
+	const int tempnumb = other.numerator * commonGround / other.denominator;
 	if (tempnuma < tempnumb)
 		return true;
 	return false;

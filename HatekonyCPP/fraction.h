@@ -33,9 +33,6 @@ public:
 	bool operator<=(const Fraction& other) const;
 	bool operator>=(const Fraction& other) const;
 
-	int GetNumerator() const;
-	int GetDenominator() const;
-
 	friend std::ostream& operator<<(std::ostream& os, const Fraction& other);
 
 	friend std::istream& operator>>(std::istream& is, Fraction& other);
