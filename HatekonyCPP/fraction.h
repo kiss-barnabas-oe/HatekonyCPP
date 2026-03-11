@@ -21,6 +21,11 @@ public:
 	Fraction& operator*=(const Fraction& other);
 	Fraction& operator/=(const Fraction& other);
 
+	Fraction operator+(const Fraction& other);
+	Fraction operator-(const Fraction& other);
+	Fraction operator*(const Fraction& other);
+	Fraction operator/(const Fraction& other);
+
 	bool operator==(const Fraction& other);
 	bool operator!=(const Fraction& other);
 	bool operator<(const Fraction& other);
@@ -54,8 +59,3 @@ private:
 	int numerator;
 	unsigned int denominator;
 };
-
-Fraction operator+(const Fraction& a, const Fraction& b);
-Fraction operator-(const Fraction& a, const Fraction& b);
-Fraction operator*(const Fraction& a, const Fraction& b);
-Fraction operator/(const Fraction& a, const Fraction& b);

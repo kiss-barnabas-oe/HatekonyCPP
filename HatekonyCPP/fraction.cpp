@@ -103,10 +103,10 @@ Fraction& Fraction::operator/=(const int number)
 	return *this;
 }
 
-Fraction operator+(const Fraction& a, const Fraction& b)
+Fraction Fraction::operator+(const Fraction& other)
 {
-	const int commonGround = a.GetDenominator() * b.GetDenominator();
-	const int tempnum = a.GetNumerator() * commonGround / a.GetDenominator() + b.GetNumerator() * commonGround / b.GetDenominator();
+	const int commonGround = this->denominator * other.GetDenominator();
+	const int tempnum = this->numerator * commonGround / this->denominator + other.GetNumerator() * commonGround / other.GetDenominator();
 	Fraction temp(tempnum, commonGround);
 	temp.SimplestForm();
 	return temp;
@@ -118,11 +118,11 @@ Fraction& Fraction::operator+=(const Fraction& other)
 	return *this;
 }
 
-Fraction operator-(const Fraction& a, const Fraction& b)
+Fraction Fraction::operator-(const Fraction& other)
 {
-	Fraction temp(b);
+	Fraction temp(other);
 	temp *= -1;
-	return operator+(a, temp);
+	return operator+(temp);
 }
 
 Fraction& Fraction::operator-=(const Fraction& other)
@@ -131,9 +131,9 @@ Fraction& Fraction::operator-=(const Fraction& other)
 	return *this;
 }
 
-Fraction operator*(const Fraction& a, const Fraction& b)
+Fraction Fraction::operator*(const Fraction& other)
 {
-	Fraction temp(a.GetNumerator() * b.GetNumerator(), a.GetDenominator() * b.GetDenominator());
+	Fraction temp(this->numerator * other.GetNumerator(), this->denominator * other.GetDenominator());
 	temp.SimplestForm();
 	return temp;
 }
@@ -144,10 +144,10 @@ Fraction& Fraction::operator*=(const Fraction& other)
 	return *this;
 }
 
-Fraction operator/(const Fraction& a, const Fraction& b)
+Fraction Fraction::operator/(const Fraction& other)
 {
-	Fraction temp(b.GetDenominator(), b.GetNumerator());
-	return operator*(a, temp);
+	Fraction temp(other.GetDenominator(), other.GetNumerator());
+	return operator*(temp);
 }
 
 Fraction& Fraction::operator/=(const Fraction& other)
