@@ -40,107 +40,117 @@ Fraction& Fraction::SimplestForm()
 
 Fraction Fraction::operator+(const int number)
 {
-	Fraction temp(this->numerator + number * denominator, denominator);
-	temp.SimplestForm();
+	Fraction temp(*this);
+	temp += number;
 	return temp;
 }
 
 Fraction& Fraction::operator+=(const int number)
 {
-	*this = *this + number;
+	numerator += number * denominator;
+	SimplestForm();
 	return *this;
 }
 
 Fraction Fraction::operator-(const int number)
-{
-	int minus = number * -1;
-	return operator+(minus);
+{	
+	return operator+(-1 * number);
 }
 
 Fraction& Fraction::operator-=(const int number)
-{
-	*this = *this - number;
-	return *this;
+{	
+	return operator+=(-1 * number);
 }
 
 Fraction Fraction::operator*(const int number)
 {
-	Fraction temp(number * numerator, denominator);
-	temp.SimplestForm();
+	Fraction temp(*this);
+	temp *= number;
 	return temp;
 }
 
 Fraction& Fraction::operator*=(const int number)
 {
-	*this = *this * number;
+	numerator *= number;	
 	SimplestForm();
 	return *this;
 }
 
 Fraction Fraction::operator/(const int number)
 {
-	Fraction temp(this->numerator, this->denominator * number);
-	temp.SimplestForm();
+	Fraction temp(*this);
+	temp /= number;
 	return temp;
 }
 
 Fraction& Fraction::operator/=(const int number)
 {
-	*this = *this / number;
+	if (number == 0)
+		throw std::invalid_argument("Division by 0");
+	denominator *= numerator;
 	SimplestForm();
 	return *this;
 }
 
 Fraction Fraction::operator+(const Fraction& other)
-{
-	const int commonGround = this->denominator * other.denominator;
-	const int tempnum = this->numerator * commonGround / this->denominator + other.numerator * commonGround / other.denominator;
-	Fraction temp(tempnum, commonGround);
-	temp.SimplestForm();
+{	
+	Fraction temp(*this);
+	temp += other;
 	return temp;
 }
 
 Fraction& Fraction::operator+=(const Fraction& other)
 {
-	*this = *this + other;
+	const int commonGround = denominator * other.denominator;
+	numerator = numerator * other.denominator + other.numerator * denominator;
+	denominator = commonGround;
+	SimplestForm();
 	return *this;
 }
 
 Fraction Fraction::operator-(const Fraction& other)
 {
-	Fraction temp(other);
-	temp *= -1;
-	return operator+(temp);
+	Fraction temp(*this);
+	temp -= other;
+	return temp;
 }
 
 Fraction& Fraction::operator-=(const Fraction& other)
 {
-	*this = *this - other;
-	return *this;
+	Fraction temp(other);
+	temp *= -1;
+	return *this += temp;
 }
 
 Fraction Fraction::operator*(const Fraction& other)
 {
-	Fraction temp(this->numerator * other.numerator, this->denominator * other.denominator);
-	temp.SimplestForm();
+	Fraction temp(*this);
+	temp *= other;
 	return temp;
 }
 
 Fraction& Fraction::operator*=(const Fraction& other)
 {
-	*this = *this * other;
+	numerator *= other.numerator;
+	denominator *= other.denominator;
+	SimplestForm();
 	return *this;
 }
 
 Fraction Fraction::operator/(const Fraction& other)
 {
-	Fraction temp(other.denominator, other.numerator);
-	return operator*(temp);
+	Fraction temp(*this);
+	temp /= other;
+	return temp;	
 }
 
 Fraction& Fraction::operator/=(const Fraction& other)
 {
-	*this = *this / other;
+	if (other.numerator == 0)
+		throw std::invalid_argument("Division by zero");
+	numerator *= other.denominator;
+	denominator *= other.numerator;
+	SimplestForm();
 	return *this;
 }
 
