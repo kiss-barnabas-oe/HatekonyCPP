@@ -156,19 +156,19 @@ Fraction& Fraction::operator/=(const Fraction& other)
 	return *this;
 }
 
-bool Fraction::operator!=(const Fraction& other)
+bool Fraction::operator!=(const Fraction& other) const
 {
 	return !(*this == other);
 }
 
-bool Fraction::operator==(const Fraction& other)
+bool Fraction::operator==(const Fraction& other) const
 {
 	if (this->numerator == other.GetNumerator() && this->denominator == other.GetDenominator())
 		return true;
 	return false;
 }
 
-bool Fraction::operator<(const Fraction& other)
+bool Fraction::operator<(const Fraction& other) const
 {
 	const int commonGround = this->denominator * other.GetDenominator();
 	const int tempnuma = this->numerator * commonGround / this->denominator;
@@ -178,13 +178,13 @@ bool Fraction::operator<(const Fraction& other)
 	return false;
 }
 
-bool Fraction::operator>(const Fraction& other)
+bool Fraction::operator>(const Fraction& other) const
 {
 	Fraction temp = other;
 	return temp < *this;
 }
 
-bool Fraction::operator<=(const Fraction& other)
+bool Fraction::operator<=(const Fraction& other) const
 {
 	if (*this == other)
 		return true;
@@ -192,7 +192,7 @@ bool Fraction::operator<=(const Fraction& other)
 		return *this < other;
 }
 
-bool Fraction::operator>=(const Fraction& other)
+bool Fraction::operator>=(const Fraction& other) const
 {
 	Fraction temp = other;
 	return temp <= *this;
