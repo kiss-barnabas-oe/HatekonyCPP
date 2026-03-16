@@ -3,6 +3,7 @@
 #include "fraction.h"
 #include <cmath>
 #include <numeric>
+#include <sstream>
 
 Fraction::Fraction(const int numerator, const int denominator)
 	: numerator(numerator)
@@ -245,4 +246,16 @@ std::istream& operator>>(std::istream& is, Fraction& other)
 	}
 	other = Fraction(num, den);
 	return is;
+}
+
+Fraction Fraction::Parse(const std::string& input)
+{
+	std::istringstream iss{ input };
+	int numerator;
+	int denominator;
+	char slash;
+	iss >> numerator >> slash >> denominator;
+	if (iss.fail() || slash != '/')
+		throw std::invalid_argument(input + " was not suitable.");
+	return Fraction(numerator, denominator);
 }

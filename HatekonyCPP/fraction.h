@@ -43,6 +43,8 @@ public:
 
 	explicit operator bool() const;
 
+	static Fraction Parse(const std::string& input);
+
 private:
 	int numerator;
 	unsigned int denominator;

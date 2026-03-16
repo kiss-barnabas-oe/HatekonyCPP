@@ -100,7 +100,7 @@ int main()
 
     Fraction inttest = static_cast<int>(booltest);
     std::cout << inttest << " = " << booltest << std::endl;
-    
+
     std::cout << static_cast<double>(booltest) << " = " << booltest << std::endl;
 
     Fraction consolein(1, 1);
@@ -108,4 +108,6 @@ int main()
     std::cin >> consolein;
 
     std::cout << "Read Fraction from console: " << consolein << std::endl;
+
+    std::cout << Fraction::Parse("1/5") << std::endl;
 }
