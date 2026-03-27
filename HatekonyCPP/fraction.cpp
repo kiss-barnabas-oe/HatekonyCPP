@@ -42,7 +42,7 @@ Fraction& Fraction::SimplestForm()
 	return *this;
 }
 
-Fraction Fraction::operator+(const int number)
+Fraction Fraction::operator+(const int number) const
 {
 	Fraction temp(*this);
 	temp += number;
@@ -56,7 +56,7 @@ Fraction& Fraction::operator+=(const int number)
 	return *this;
 }
 
-Fraction Fraction::operator-(const int number)
+Fraction Fraction::operator-(const int number) const
 {	
 	return operator+(-number);
 }
@@ -66,7 +66,7 @@ Fraction& Fraction::operator-=(const int number)
 	return operator+=(-1 * number);
 }
 
-Fraction Fraction::operator*(const int number)
+Fraction Fraction::operator*(const int number) const
 {
 	Fraction temp(*this);
 	temp *= number;
@@ -80,7 +80,7 @@ Fraction& Fraction::operator*=(const int number)
 	return *this;
 }
 
-Fraction Fraction::operator/(const int number)
+Fraction Fraction::operator/(const int number) const
 {
 	Fraction temp(*this);
 	temp /= number;
@@ -96,7 +96,7 @@ Fraction& Fraction::operator/=(const int number)
 	return *this;
 }
 
-Fraction Fraction::operator+(const Fraction& other)
+Fraction Fraction::operator+(const Fraction& other) const
 {	
 	Fraction temp(*this);
 	temp += other;
@@ -112,7 +112,7 @@ Fraction& Fraction::operator+=(const Fraction& other)
 	return *this;
 }
 
-Fraction Fraction::operator-(const Fraction& other)
+Fraction Fraction::operator-(const Fraction& other) const
 {
 	Fraction temp(*this);
 	temp -= other;
@@ -126,7 +126,7 @@ Fraction& Fraction::operator-=(const Fraction& other)
 	return *this += temp;
 }
 
-Fraction Fraction::operator*(const Fraction& other)
+Fraction Fraction::operator*(const Fraction& other) const
 {
 	Fraction temp(*this);
 	temp *= other;
@@ -141,7 +141,7 @@ Fraction& Fraction::operator*=(const Fraction& other)
 	return *this;
 }
 
-Fraction Fraction::operator/(const Fraction& other)
+Fraction Fraction::operator/(const Fraction& other) const
 {
 	Fraction temp(*this);
 	temp /= other;

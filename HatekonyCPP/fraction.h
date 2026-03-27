@@ -6,10 +6,10 @@ public:
 	Fraction(const double number);
 	Fraction& SimplestForm();
 	
-	Fraction operator+(const int number);
-	Fraction operator-(const int number);
-	Fraction operator*(const int number);
-	Fraction operator/(const int number);
+	Fraction operator+(const int number) const;
+	Fraction operator-(const int number) const;
+	Fraction operator*(const int number) const;
+	Fraction operator/(const int number) const;
 
 	Fraction& operator+=(const int number);
 	Fraction& operator-=(const int number);
@@ -21,10 +21,10 @@ public:
 	Fraction& operator*=(const Fraction& other);
 	Fraction& operator/=(const Fraction& other);
 
-	Fraction operator+(const Fraction& other);
-	Fraction operator-(const Fraction& other);
-	Fraction operator*(const Fraction& other);
-	Fraction operator/(const Fraction& other);
+	Fraction operator+(const Fraction& other) const;
+	Fraction operator-(const Fraction& other) const;
+	Fraction operator*(const Fraction& other) const;
+	Fraction operator/(const Fraction& other) const;
 
 	bool operator==(const Fraction& other) const;
 	bool operator!=(const Fraction& other) const;
