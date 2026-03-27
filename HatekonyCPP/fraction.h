@@ -5,16 +5,6 @@ public:
 	Fraction(const int numerator, const int denominator = 1);
 	Fraction(const double number);
 	Fraction& SimplestForm();
-	
-	Fraction operator+(const int number) const;
-	Fraction operator-(const int number) const;
-	Fraction operator*(const int number) const;
-	Fraction operator/(const int number) const;
-
-	Fraction& operator+=(const int number);
-	Fraction& operator-=(const int number);
-	Fraction& operator*=(const int number);
-	Fraction& operator/=(const int number);
 
 	Fraction& operator+=(const Fraction& other);
 	Fraction& operator-=(const Fraction& other);

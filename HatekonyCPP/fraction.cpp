@@ -42,60 +42,6 @@ Fraction& Fraction::SimplestForm()
 	return *this;
 }
 
-Fraction Fraction::operator+(const int number) const
-{
-	Fraction temp(*this);
-	temp += number;
-	return temp;
-}
-
-Fraction& Fraction::operator+=(const int number)
-{
-	numerator += number * denominator;
-	SimplestForm();
-	return *this;
-}
-
-Fraction Fraction::operator-(const int number) const
-{	
-	return operator+(-number);
-}
-
-Fraction& Fraction::operator-=(const int number)
-{	
-	return operator+=(-1 * number);
-}
-
-Fraction Fraction::operator*(const int number) const
-{
-	Fraction temp(*this);
-	temp *= number;
-	return temp;
-}
-
-Fraction& Fraction::operator*=(const int number)
-{
-	numerator *= number;	
-	SimplestForm();
-	return *this;
-}
-
-Fraction Fraction::operator/(const int number) const
-{
-	Fraction temp(*this);
-	temp /= number;
-	return temp;
-}
-
-Fraction& Fraction::operator/=(const int number)
-{
-	if (number == 0)
-		throw std::invalid_argument("Division by 0");
-	denominator *= numerator;
-	SimplestForm();
-	return *this;
-}
-
 Fraction Fraction::operator+(const Fraction& other) const
 {	
 	Fraction temp(*this);
