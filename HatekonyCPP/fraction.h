@@ -41,3 +41,8 @@ private:
 	int numerator;
 	unsigned int denominator;
 };
+
+Fraction operator+(int number, const Fraction& other);
+Fraction operator-(int number, const Fraction& other);
+Fraction operator*(int number, const Fraction& other);
+Fraction operator/(int number, const Fraction& other);

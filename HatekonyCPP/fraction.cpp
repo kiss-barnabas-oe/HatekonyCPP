@@ -109,6 +109,23 @@ Fraction& Fraction::operator/=(const Fraction& other)
 	return *this;
 }
 
+Fraction operator+(int number, const Fraction& other)
+{
+	return other + number;
+}
+Fraction operator-(int number, const Fraction& other)
+{
+	return -other + number;
+}
+Fraction operator*(int number, const Fraction& other)
+{
+	return other * number;
+}
+Fraction operator/(int number, const Fraction& other)
+{
+	return Fraction(number) / other;
+}
+
 bool Fraction::operator!=(const Fraction& other) const
 {
 	return !(*this == other);
