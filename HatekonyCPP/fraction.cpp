@@ -113,14 +113,17 @@ Fraction operator+(int number, const Fraction& other)
 {
 	return other + number;
 }
+
 Fraction operator-(int number, const Fraction& other)
 {
 	return -other + number;
 }
+
 Fraction operator*(int number, const Fraction& other)
 {
 	return other * number;
 }
+
 Fraction operator/(int number, const Fraction& other)
 {
 	return Fraction(number) / other;
@@ -133,9 +136,7 @@ bool Fraction::operator!=(const Fraction& other) const
 
 bool Fraction::operator==(const Fraction& other) const
 {
-	if (this->numerator == other.numerator && this->denominator == other.denominator)
-		return true;
-	return false;
+	return (this->numerator == other.numerator && this->denominator == other.denominator);
 }
 
 bool Fraction::operator<(const Fraction& other) const
