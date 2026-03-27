@@ -141,12 +141,7 @@ bool Fraction::operator==(const Fraction& other) const
 
 bool Fraction::operator<(const Fraction& other) const
 {
-	const int commonGround = this->denominator * other.denominator;
-	const int tempnuma = this->numerator * commonGround / this->denominator;
-	const int tempnumb = other.numerator * commonGround / other.denominator;
-	if (tempnuma < tempnumb)
-		return true;
-	return false;
+	return static_cast<double>(*this) < static_cast<double>(other);	
 }
 
 bool Fraction::operator>(const Fraction& other) const
