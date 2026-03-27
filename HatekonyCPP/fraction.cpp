@@ -13,7 +13,10 @@ Fraction::Fraction(const int numerator, const int denominator)
 		throw std::invalid_argument("Denominator can't be 0.");
 
 	if (denominator < 0)
-		throw std::invalid_argument("Denominator can't be below 0.");
+	{
+		this->numerator *= -1;
+		this->denominator *= -1;
+	}		
 	
 	SimplestForm();
 }
