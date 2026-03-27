@@ -21,11 +21,6 @@ Fraction::Fraction(const int numerator, const int denominator)
 	SimplestForm();
 }
 
-Fraction Fraction::operator-() const
-{
-	return Fraction(-numerator, denominator);
-}
-
 Fraction::Fraction(const double number)
 	: numerator(static_cast<int>(std::round(number * 1000000)))
 	, denominator(1000000)
@@ -45,6 +40,11 @@ Fraction& Fraction::SimplestForm()
 		denominator /= res;
 	}
 	return *this;
+}
+
+Fraction Fraction::operator-() const
+{
+	return Fraction(-numerator, denominator);
 }
 
 Fraction Fraction::operator+(const Fraction& other) const
@@ -177,10 +177,9 @@ Fraction::operator bool() const
 
 std::ostream& operator<<(std::ostream& os, const Fraction& other)
 {
-	if (other.denominator == 1)
-		os << std::to_string(other.numerator);	
-	else
-		os << std::to_string(other.numerator) << "/" << std::to_string(other.denominator);
+	os << std::to_string(other.numerator);
+	if (other.denominator != 1)
+		os << "/" << std::to_string(other.denominator);
 	return os;
 }
 
@@ -188,26 +187,31 @@ std::istream& operator>>(std::istream& is, Fraction& other)
 {
 	std::string s;
 	is >> s;
-	int num = 1;
+	int num = 0;
 	int den = 1;
 
 	if (s.find('.') != std::string::npos)
 	{
-		other = Fraction(std::stod(s));
+		double val = std::stod(s);
+		num = static_cast<int>(val * 1000000);
+		den = 1000000;
 	}
 	else if (s.find('/') != std::string::npos)
 	{
-		num = std::stoi(s.substr(0, s.find('/')));
-		den = std::stoi(s.substr(s.find('/') + 1));		
+		size_t pos = s.find('/');
+		num = std::stoi(s.substr(0, pos));
+		den = std::stoi(s.substr(pos + 1));
 	}
 	else
 	{
-		num = std::stoi(s);		
-
-		if (!(is >> den))
-			den = 1;
+		num = std::stoi(s);
+		den = 1;
 	}
-	other = Fraction(num, den);
+
+	other.numerator = num;
+	other.denominator = den;
+	other.SimplestForm();
+
 	return is;
 }
 
