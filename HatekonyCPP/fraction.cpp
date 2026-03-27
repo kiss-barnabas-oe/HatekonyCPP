@@ -21,6 +21,11 @@ Fraction::Fraction(const int numerator, const int denominator)
 	SimplestForm();
 }
 
+Fraction Fraction::operator-() const
+{
+	return Fraction(-numerator, denominator);
+}
+
 Fraction::Fraction(const double number)
 	: numerator(static_cast<int>(std::round(number * 1000000)))
 	, denominator(1000000)

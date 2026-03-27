@@ -6,6 +6,8 @@ public:
 	Fraction(const double number);
 	Fraction& SimplestForm();
 
+	Fraction operator-() const;
+
 	Fraction& operator+=(const Fraction& other);
 	Fraction& operator-=(const Fraction& other);
 	Fraction& operator*=(const Fraction& other);
