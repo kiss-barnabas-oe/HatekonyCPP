@@ -172,7 +172,7 @@ Fraction::operator double() const
 
 Fraction::operator bool() const
 {
-	return numerator > 0;
+	return numerator != 0;
 }
 
 std::ostream& operator<<(std::ostream& os, const Fraction& other)
