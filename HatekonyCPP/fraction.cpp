@@ -55,7 +55,7 @@ Fraction& Fraction::operator+=(const int number)
 
 Fraction Fraction::operator-(const int number)
 {	
-	return operator+(-1 * number);
+	return operator+(-number);
 }
 
 Fraction& Fraction::operator-=(const int number)
