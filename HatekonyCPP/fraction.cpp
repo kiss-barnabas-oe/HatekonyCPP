@@ -152,10 +152,7 @@ bool Fraction::operator>(const Fraction& other) const
 
 bool Fraction::operator<=(const Fraction& other) const
 {
-	if (*this == other)
-		return true;
-	else
-		return *this < other;
+	return *this == other || *this < other;
 }
 
 bool Fraction::operator>=(const Fraction& other) const
