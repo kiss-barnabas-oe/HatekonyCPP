@@ -71,10 +71,8 @@ Fraction Fraction::operator-(const Fraction& other) const
 }
 
 Fraction& Fraction::operator-=(const Fraction& other)
-{
-	Fraction temp(other);
-	temp *= -1;
-	return *this += temp;
+{	
+	return *this += -other;
 }
 
 Fraction Fraction::operator*(const Fraction& other) const
