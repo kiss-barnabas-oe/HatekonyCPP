@@ -55,10 +55,9 @@ Fraction Fraction::operator+(const Fraction& other) const
 }
 
 Fraction& Fraction::operator+=(const Fraction& other)
-{
-	const int commonGround = denominator * other.denominator;
+{	
 	numerator = numerator * other.denominator + other.numerator * denominator;
-	denominator = commonGround;
+	denominator = denominator * other.denominator;
 	SimplestForm();
 	return *this;
 }
