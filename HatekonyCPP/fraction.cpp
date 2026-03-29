@@ -142,9 +142,8 @@ bool Fraction::operator<(const Fraction& other) const
 }
 
 bool Fraction::operator>(const Fraction& other) const
-{
-	Fraction temp = other;
-	return temp < *this;
+{	
+	return other < *this;
 }
 
 bool Fraction::operator<=(const Fraction& other) const
