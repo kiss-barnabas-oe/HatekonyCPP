@@ -35,11 +35,15 @@ public:
 
 	explicit operator bool() const;
 
+	explicit operator std::string() const;
+
 	static Fraction Parse(const std::string& input);
 
 private:
 	int numerator;
 	unsigned int denominator;
+
+	constexpr static double scale = 1000000;
 };
 
 Fraction operator+(int number, const Fraction& other);

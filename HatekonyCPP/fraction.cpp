@@ -22,8 +22,8 @@ Fraction::Fraction(const int numerator, const int denominator)
 }
 
 Fraction::Fraction(const double number)
-	: numerator(static_cast<int>(std::round(number * 1000000)))
-	, denominator(1000000)
+	: numerator(static_cast<int>(std::round(number * scale)))
+	, denominator(scale)
 {	
 	SimplestForm();
 }
@@ -171,54 +171,50 @@ Fraction::operator bool() const
 	return numerator != 0;
 }
 
+Fraction::operator std::string() const {
+	if (denominator == 1)
+		return std::to_string(numerator);
+	return std::to_string(numerator) + "/" + std::to_string(denominator);
+}
+
 std::ostream& operator<<(std::ostream& os, const Fraction& other)
 {
-	os << std::to_string(other.numerator);
-	if (other.denominator != 1)
-		os << "/" << std::to_string(other.denominator);
-	return os;
+	return os << static_cast<std::string>(other);	
 }
 
 std::istream& operator>>(std::istream& is, Fraction& other)
 {
 	std::string s;
 	is >> s;
-	int num = 0;
-	int den = 1;
 
-	if (s.find('.') != std::string::npos)
+	try
 	{
-		double val = std::stod(s);
-		num = static_cast<int>(val * 1000000);
-		den = 1000000;
+		other = Fraction::Parse(s);
 	}
-	else if (s.find('/') != std::string::npos)
+	catch (const std::invalid_argument&)
 	{
-		size_t pos = s.find('/');
-		num = std::stoi(s.substr(0, pos));
-		den = std::stoi(s.substr(pos + 1));
+		is.setstate(std::ios::failbit);
 	}
-	else
-	{
-		num = std::stoi(s);
-		den = 1;
-	}
-
-	other.numerator = num;
-	other.denominator = den;
-	other.SimplestForm();
 
 	return is;
 }
 
 Fraction Fraction::Parse(const std::string& input)
 {
-	std::istringstream iss{ input };
-	int numerator;
-	int denominator;
-	char slash;
-	iss >> numerator >> slash >> denominator;
-	if (iss.fail() || slash != '/')
-		throw std::invalid_argument(input + " was not suitable.");
-	return Fraction(numerator, denominator);
+	if (input.find('/') != std::string::npos)
+	{
+		size_t pos = input.find('/');
+		int n = std::stoi(input.substr(0, pos));
+		int d = std::stoi(input.substr(pos + 1));
+		return Fraction(n, d);
+	}
+	else if (input.find('.') != std::string::npos)
+	{
+		double val = std::stod(input);		
+		return Fraction(static_cast<int>(val * scale), scale);
+	}
+	else
+	{
+		return Fraction(std::stoi(input), 1);
+	}
 }

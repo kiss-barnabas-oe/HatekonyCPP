@@ -109,5 +109,5 @@ int main()
 
     std::cout << "Read Fraction from console: " << consolein << std::endl;
 
-    std::cout << Fraction::Parse("1/5") << std::endl;
+    std::cout << Fraction::Parse("3.5") << std::endl;
 }
