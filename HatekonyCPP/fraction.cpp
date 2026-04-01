@@ -57,7 +57,7 @@ Fraction Fraction::operator+(const Fraction& other) const
 Fraction& Fraction::operator+=(const Fraction& other)
 {	
 	numerator = numerator * other.denominator + other.numerator * denominator;
-	denominator = denominator * other.denominator;
+	denominator *= other.denominator;
 	SimplestForm();
 	return *this;
 }
