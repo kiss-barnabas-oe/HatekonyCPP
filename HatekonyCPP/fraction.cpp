@@ -187,11 +187,28 @@ std::istream& operator>>(std::istream& is, Fraction& other)
 	std::string s;
 	is >> s;
 
+	if (!is) return is;
+
 	try
 	{
-		other = Fraction::Parse(s);
+		if (s.find('/') != std::string::npos)
+		{
+			size_t pos = s.find('/');
+			int n = std::stoi(s.substr(0, pos));
+			int d = std::stoi(s.substr(pos + 1));
+			other = Fraction(n, d);
+		}
+		else if (s.find('.') != std::string::npos)
+		{
+			double val = std::stod(s);
+			other = Fraction(static_cast<int>(val * Fraction::scale), Fraction::scale);
+		}
+		else
+		{
+			other = Fraction(std::stoi(s), 1);
+		}
 	}
-	catch (const std::invalid_argument&)
+	catch (...)
 	{
 		is.setstate(std::ios::failbit);
 	}
@@ -201,20 +218,11 @@ std::istream& operator>>(std::istream& is, Fraction& other)
 
 Fraction Fraction::Parse(const std::string& input)
 {
-	if (input.find('/') != std::string::npos)
-	{
-		size_t pos = input.find('/');
-		int n = std::stoi(input.substr(0, pos));
-		int d = std::stoi(input.substr(pos + 1));
-		return Fraction(n, d);
-	}
-	else if (input.find('.') != std::string::npos)
-	{
-		double val = std::stod(input);		
-		return Fraction(static_cast<int>(val * scale), scale);
-	}
-	else
-	{
-		return Fraction(std::stoi(input), 1);
-	}
+	std::istringstream iss(input);
+	Fraction f(0, 1);
+
+	if (!(iss >> f))
+		throw std::invalid_argument("Invalid fraction format");
+
+	return f;
 }

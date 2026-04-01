@@ -43,7 +43,7 @@ private:
 	int numerator;
 	unsigned int denominator;
 
-	constexpr static double scale = 1000000;
+	constexpr static int scale = 1000000;
 };
 
 Fraction operator+(int number, const Fraction& other);
