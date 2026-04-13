@@ -44,7 +44,7 @@ private:
 
 	constexpr static int scale = 1000000;
 
- Fraction& SimplestForm();
+	Fraction& SimplestForm();
 };
 
 Fraction operator+(int number, const Fraction& other);
