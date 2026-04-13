@@ -4,7 +4,6 @@ class Fraction {
 public:
 	Fraction(const int numerator, const int denominator = 1);
 	Fraction(const double number);
-	Fraction& SimplestForm();
 
 	Fraction operator-() const;
 
@@ -44,6 +43,8 @@ private:
 	unsigned int denominator;
 
 	constexpr static int scale = 1000000;
+
+ Fraction& SimplestForm();
 };
 
 Fraction operator+(int number, const Fraction& other);
