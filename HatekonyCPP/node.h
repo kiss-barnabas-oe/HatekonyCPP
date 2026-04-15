@@ -43,14 +43,17 @@ Node<K, T>::~Node()
 template<typename K, typename T>
 Node<K, T>& Node<K, T>::operator=(const Node& other)
 {
-	if (this != &other)
-	{
-		key = other.key;
-		value = other.value;
-		delete left;
-		left = other.left ? new Node(*other.left) : nullptr;
+	if (this == &other)
+		return *this;
+	
+	key = other.key;
+	value = other.value;
+	if(left)
+		delete left;	
+	left = other.left ? new Node(*other.left) : nullptr;
+	if(right)
 		delete right;
-		right = other.right ? new Node(*other.right) : nullptr;
-	}
+	right = other.right ? new Node(*other.right) : nullptr;
+	
 	return *this;
 }
