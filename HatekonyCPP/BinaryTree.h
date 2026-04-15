@@ -47,8 +47,8 @@ template<typename K, typename T>
 BinaryTree<K, T>& BinaryTree<K, T>::operator=(const BinaryTree& other)
 {
 	if (this == &other) {
-	return *this;
-}
+		return *this;
+	}
 
 	if (root) {
 		delete root;
@@ -65,44 +65,60 @@ void BinaryTree<K, T>::Insert(const K& key, const T& value)
 	if(Contains(key))
 		throw std::invalid_argument("Key already exists in the tree.");
 	root = InsertToSubTree(root, key, value);
-	}
+}
 
 template<typename K, typename T>
 Node<K, T>* BinaryTree<K, T>::InsertToSubTree(Node<K, T>* node, K key, T value)
-	{
-	if (node)
-	{
+{
+    if (node)
+    {
         if(node->key > key)		
             node->left = InsertToSubTree(node->left, key, value);		
         else if(node->key < key)
             node->right = InsertToSubTree(node->right, key, value);				
         return node;
-	}
-	else
-	{
-		return new Node<K, T>{ key, value };
-	}
-	}
+    }
+    else
+    {
+        return new Node<K, T>{ key, value };
+    }
+}
 
 template<typename K, typename T>
 T* BinaryTree<K, T>::Find(const K& key)
 {
-	auto node = root;
-	if (!node)
-	{
-		return nullptr;
-	}
-	else if (key < node->key)
-	{
-		return find(node->left, key);
-	}
-	else if (key > node->key)
-	{
-		return find(node->right, key);
-	}
-	else
-	{
-		return &node->value;
-	}
+	return FindInSubTree(root, key);
+}
+
+template<typename K, typename T>
+T* BinaryTree<K, T>::FindInSubTree(Node<K, T>* node, const K& key)
+{
+    if (!node)
+        return nullptr;
+    if (node->key == key)
+        return &(node->value);
+    else if (node->key > key)
+        return FindInSubTree(node->left, key);
+    else
+        return FindInSubTree(node->right, key);
+}
+
+template<typename K, typename T>
+bool BinaryTree<K, T>::Contains(const K& key)
+{
+	return ContainsInSubTree(root, key);
+}
+
+template<typename K, typename T>
+bool BinaryTree<K, T>::ContainsInSubTree(Node<K, T>* node, const K& key)
+{
+    if (!node)
+        return false;
+    if(node->key == key)
+        return true;
+    else if(node->key > key)
+        return ContainsInSubTree(node->left, key);
+    else
+        return ContainsInSubTree(node->right, key);
 }
 
