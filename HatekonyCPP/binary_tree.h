@@ -26,6 +26,9 @@ public:
 
 	using iterator = BinaryTreeIterator<K, T>;
 
+	iterator begin();
+	iterator end();
+
 private:
 	Node<K, T>* root{ nullptr };
 	Node<K, T>* InsertToSubTree(Node<K, T>* node, K key, T value);
@@ -49,10 +52,8 @@ BinaryTree<K, T>::BinaryTree(BinaryTree&& other) noexcept
 template<typename K, typename T>
 BinaryTree<K, T>::~BinaryTree()
 {
-	if (root->left)
-		delete root->left;	
-	if (root->right)
-		delete root->right;
+	if(root)
+		delete root;
 }
 
 template<typename K, typename T>
@@ -235,4 +236,16 @@ void BinaryTree<K, T>::twoChildrenRemove(Node<K, T>* node, Node<K, T>* r)
 		delete temp;
 		return r;
 	}
+}
+
+template<typename K, typename T>
+typename BinaryTree<K, T>::iterator begin()
+{
+	return iterator(root);
+}
+
+template<typename K, typename T>
+typename BinaryTree<K, T>::iterator end()
+{
+	return iterator(nullptr);
 }
