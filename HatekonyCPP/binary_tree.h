@@ -1,5 +1,6 @@
 #pragma once
 #include "node.h"
+#include "binary_tree_iterator.h"
 
 template<typename K, typename T>
 class BinaryTree
@@ -18,14 +19,19 @@ public:
 	bool Insert(const K& key, const T& value);
 	bool Contains(const K& key);
 	bool empty() const;
+	bool remove(const K& key);
+	void twoChildrenRemove(Node<K, T>* node, Node<K, T>* r);
 
 	void clear();
+
+	using iterator = BinaryTreeIterator<K, T>;
 
 private:
 	Node<K, T>* root{ nullptr };
 	Node<K, T>* InsertToSubTree(Node<K, T>* node, K key, T value);
 	T* FindInSubTree(Node<K, T>* node, const K& key);
 	bool ContainsInSubTree(Node<K, T>* node, const K& key);
+	bool removeFromSubTree(Node<K, T>* node, const K& key);
 };
 
 template<typename K, typename T>
@@ -164,5 +170,69 @@ void BinaryTree<K, T>::clear() {
 	if (root) {
 		delete root;
 		root = nullptr;
+	}
+}
+
+template<typename K, typename T>
+bool BinaryTree<K, T>::remove(const K& key)
+{
+	try
+	{
+		root = removeFromSubTree(root, key);
+	}
+	catch (const std::invalid_argument&)
+	{
+		return false;
+	}
+	return true;
+}
+
+template<typename K, typename T>
+bool BinaryTree<K, T>::removeFromSubTree(Node<K, T>* node, const K& key)
+{
+	if(node == nullptr)
+		throw std::invalid_argument("Key not found in the tree.");
+	if (node->key > key)
+		node->left = removeFromSubTree(node->left, key);
+	else if (node->key < key)
+		node->right = removeFromSubTree(node->right, key);
+	else
+	{
+		if (node->left == nullptr)
+		{
+			Node<K, T>* temp = node->right;
+			delete node;
+			return temp;
+		}
+		else if (node->right == nullptr)
+		{
+			Node<K, T>* temp = node;
+			node = node->right;
+			delete temp;
+		}	
+		else
+		{
+			node->left = twoChildrenRemove(node, node->left);
+		}
+	}
+	return node;
+}
+
+template<typename K, typename T>
+void BinaryTree<K, T>::twoChildrenRemove(Node<K, T>* node, Node<K, T>* r)
+{
+	if (r->right != nullptr)
+	{
+		r->right = twoChildrenRemove(node, r->right);
+		return r;
+	}
+	else
+	{
+		Node<K, T>* temp = r;
+		node->key = r->key;
+		node->value = r->value;
+		r = r->left;
+		delete temp;
+		return r;
 	}
 }

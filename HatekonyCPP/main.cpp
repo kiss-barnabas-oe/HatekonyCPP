@@ -1,5 +1,5 @@
 #include <iostream>
-#include "BinaryTree.h"
+#include "binary_tree.h"
 
 int main()
 {
