@@ -17,6 +17,7 @@ public:
 	T* Find(const K& key);
 	void Insert(const K& key, const T& value);
 	bool Contains(const K& key);
+	bool empty() const;
 
 
 private:
@@ -151,3 +152,7 @@ bool BinaryTree<K, T>::ContainsInSubTree(Node<K, T>* node, const K& key)
         return ContainsInSubTree(node->right, key);
 }
 
+template<typename K, typename T>
+bool BinaryTree<K, T>::empty() const {
+	return root == nullptr;
+}
