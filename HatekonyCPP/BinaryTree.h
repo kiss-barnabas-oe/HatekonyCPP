@@ -19,6 +19,7 @@ public:
 	bool Contains(const K& key);
 	bool empty() const;
 
+	void clear();
 
 private:
 	Node<K, T>* root{ nullptr };
@@ -155,4 +156,12 @@ bool BinaryTree<K, T>::ContainsInSubTree(Node<K, T>* node, const K& key)
 template<typename K, typename T>
 bool BinaryTree<K, T>::empty() const {
 	return root == nullptr;
+}
+
+template<typename K, typename T>
+void BinaryTree<K, T>::clear() {
+	if (root) {
+		delete root;
+		root = nullptr;
+	}
 }

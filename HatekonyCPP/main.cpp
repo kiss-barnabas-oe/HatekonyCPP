@@ -16,5 +16,5 @@ int main()
 	std::cout << *tree.Find(1) << std::endl;
 	if(tree.Contains(1))
 		std::cout << "Key " << 1 << " is in tree." << std::endl;
-	std::cout << tree[1] << std::endl;
+	std::cout << tree[1] << std::endl;	
 }
