@@ -15,7 +15,7 @@ public:
 	T operator[](const K& key);
 
 	T* Find(const K& key);
-	void Insert(const K& key, const T& value);
+	bool Insert(const K& key, const T& value);
 	bool Contains(const K& key);
 	bool empty() const;
 
@@ -83,11 +83,12 @@ BinaryTree<K, T>& BinaryTree<K, T>::operator=(BinaryTree& other) noexcept
 }
 
 template<typename K, typename T>
-void BinaryTree<K, T>::Insert(const K& key, const T& value)
+bool BinaryTree<K, T>::Insert(const K& key, const T& value)
 {
 	if(Contains(key))
 		throw std::invalid_argument("Key already exists in the tree.");
 	root = InsertToSubTree(root, key, value);
+	return Contains(key);
 }
 
 template<typename K, typename T>
