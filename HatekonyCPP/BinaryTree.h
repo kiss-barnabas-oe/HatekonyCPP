@@ -11,9 +11,13 @@ public:
 	~BinaryTree();
 
 	BinaryTree& operator=(const BinaryTree& other);
-	void Insert(const K& key, const T& value);
+	BinaryTree& operator=(BinaryTree& other) noexcept;
+	T operator[](const K& key);
+
 	T* Find(const K& key);
+	void Insert(const K& key, const T& value);
 	bool Contains(const K& key);
+
 
 private:
 	Node<K, T>* root{ nullptr };
@@ -60,6 +64,23 @@ BinaryTree<K, T>& BinaryTree<K, T>::operator=(const BinaryTree& other)
 }
 
 template<typename K, typename T>
+BinaryTree<K, T>& BinaryTree<K, T>::operator=(BinaryTree& other) noexcept
+{
+	if (this == &other) {
+		return *this;
+	}
+
+	if (root) {
+		delete root;
+	}
+
+	root = other.root ? new Node<K, T>{ *other.root } : nullptr;
+	other.root = nullptr;
+
+	return *this;
+}
+
+template<typename K, typename T>
 void BinaryTree<K, T>::Insert(const K& key, const T& value)
 {
 	if(Contains(key))
@@ -87,7 +108,10 @@ Node<K, T>* BinaryTree<K, T>::InsertToSubTree(Node<K, T>* node, K key, T value)
 template<typename K, typename T>
 T* BinaryTree<K, T>::Find(const K& key)
 {
-	return FindInSubTree(root, key);
+	const auto result = FindInSubTree(root, key);
+	if(result == nullptr)
+		throw std::invalid_argument("Key not found in the tree.");
+	return result;
 }
 
 template<typename K, typename T>
@@ -101,6 +125,11 @@ T* BinaryTree<K, T>::FindInSubTree(Node<K, T>* node, const K& key)
         return FindInSubTree(node->left, key);
     else
         return FindInSubTree(node->right, key);
+}
+
+template<typename K, typename T>
+T BinaryTree<K, T>::operator[](const K& key) {
+	return *Find(key);
 }
 
 template<typename K, typename T>
