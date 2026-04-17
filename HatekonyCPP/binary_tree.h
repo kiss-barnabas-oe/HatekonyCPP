@@ -15,10 +15,10 @@ public:
 	BinaryTree& operator=(BinaryTree& other) noexcept;
 	T operator[](const K& key);
 
-	T* Find(const K& key);
+	T* Find(const K& key) const;
 	bool Insert(const K& key, const T& value);
-	bool Contains(const K& key);
-	bool empty() const;
+	bool Contains(const K& key) const;
+	bool empty() const const;
 	bool remove(const K& key);
 	void twoChildrenRemove(Node<K, T>* node, Node<K, T>* r);
 
@@ -116,7 +116,7 @@ Node<K, T>* BinaryTree<K, T>::InsertToSubTree(Node<K, T>* node, K key, T value)
 }
 
 template<typename K, typename T>
-T* BinaryTree<K, T>::Find(const K& key)
+T* BinaryTree<K, T>::Find(const K& key) const
 {
 	const auto result = FindInSubTree(root, key);
 	if(result == nullptr)
@@ -143,7 +143,7 @@ T BinaryTree<K, T>::operator[](const K& key) {
 }
 
 template<typename K, typename T>
-bool BinaryTree<K, T>::Contains(const K& key)
+bool BinaryTree<K, T>::Contains(const K& key) const
 {
 	return ContainsInSubTree(root, key);
 }
