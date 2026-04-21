@@ -4,10 +4,10 @@
 int main()
 {
 	BinaryTree<int, std::string> tree;
-	tree.Insert(1, "valami");
+	tree.insert(1, "valami");
 	try
 	{
-		tree.Insert(1, "valami2");
+		tree.insert(1, "valami2");
 	}
 	catch (const std::exception&)
 	{

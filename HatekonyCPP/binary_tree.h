@@ -16,12 +16,12 @@ public:
 	T* operator[](const K& key);
 	const T* operator[](const K& key) const;
 	
-	bool Insert(const K& key, const T& value);
-	bool contains(const K& key) const;
 	bool empty() const;
-	bool remove(const K& key);
-
 	void clear();
+	bool insert(const K& key, const T& value);
+	bool remove(const K& key);
+	bool contains(const K& key) const;
+
 
 	using iterator = BinaryTreeIterator<K, T>;
 
@@ -31,8 +31,8 @@ public:
 private:
 	Node<K, T>* root{ nullptr };
 	Node<K, T>* InsertToSubTree(Node<K, T>* node, K key, T value);
-	T* FindInSubTree(Node<K, T>* node, const K& key);
-	const T* FindInSubTree(const Node<K, T>* node, const K& key) const;
+	T* findInSubTree(Node<K, T>* node, const K& key);
+	const T* findInSubTree(const Node<K, T>* node, const K& key) const;
 	bool removeFromSubTree(Node<K, T>* node, const K& key);
 	void twoChildrenRemove(Node<K, T>* node, Node<K, T>* r);
 };
@@ -84,7 +84,7 @@ BinaryTree<K, T>& BinaryTree<K, T>::operator=(BinaryTree& other) noexcept
 }
 
 template<typename K, typename T>
-bool BinaryTree<K, T>::Insert(const K& key, const T& value)
+bool BinaryTree<K, T>::insert(const K& key, const T& value)
 {
 	if(contains(key))
 		throw std::invalid_argument("Key already exists in the tree.");
@@ -110,40 +110,40 @@ Node<K, T>* BinaryTree<K, T>::InsertToSubTree(Node<K, T>* node, K key, T value)
 }
 
 template<typename K, typename T>
-T* BinaryTree<K, T>::FindInSubTree(Node<K, T>* node, const K& key)
+T* BinaryTree<K, T>::findInSubTree(Node<K, T>* node, const K& key)
 {
     if (!node)
         return nullptr;
     if (node->key == key)
         return &(node->value);
     else if (node->key > key)
-        return FindInSubTree(node->left, key);
+        return findInSubTree(node->left, key);
     else
-        return FindInSubTree(node->right, key);
+        return findInSubTree(node->right, key);
 }
 
 template<typename K, typename T>
-const T* BinaryTree<K, T>::FindInSubTree(const Node<K, T>* node, const K& key) const
+const T* BinaryTree<K, T>::findInSubTree(const Node<K, T>* node, const K& key) const
 {
-    return const_cast<T*>(const_cast<BinaryTree*>(this)->FindInSubTree(const_cast<Node<K, T>*>(node), key));
+    return const_cast<T*>(const_cast<BinaryTree*>(this)->findInSubTree(const_cast<Node<K, T>*>(node), key));
 }
 
 template<typename K, typename T>
 T* BinaryTree<K, T>::operator[](const K& key)
 {
-	return FindInSubTree(root, key);	
+	return findInSubTree(root, key);	
 }
 
 template<typename K, typename T>
 const T* BinaryTree<K, T>::operator[](const K& key) const
 {
-	return FindInSubTree(root, key);
+	return findInSubTree(root, key);
 }
 
 template<typename K, typename T>
 bool BinaryTree<K, T>::contains(const K& key) const
 {
-	return FindInSubTree(root, key) != nullptr;
+	return findInSubTree(root, key) != nullptr;
 }
 
 template<typename K, typename T>
