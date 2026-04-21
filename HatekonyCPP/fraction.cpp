@@ -34,8 +34,7 @@ Fraction& Fraction::SimplestForm()
 		return *this;
 	const int res = std::gcd(numerator, denominator);
 	if (res > 1)
-	{
-		std::cout << *this << " fraction simplified by " << res << std::endl;
+	{		
 		numerator /= res;
 		denominator /= res;
 	}
