@@ -13,7 +13,7 @@ int main()
 	{
 		std::cout << "Key already exists in the tree." << std::endl;
 	}	
-	if(tree.Contains(1))
+	if(tree.contains(1))
 		std::cout << "Key " << 1 << " is in tree." << std::endl;
 	std::cout << *tree[1] << std::endl;	
 }

@@ -17,7 +17,7 @@ public:
 	const T* operator[](const K& key) const;
 	
 	bool Insert(const K& key, const T& value);
-	bool Contains(const K& key) const;
+	bool contains(const K& key) const;
 	bool empty() const;
 	bool remove(const K& key);
 
@@ -32,7 +32,7 @@ private:
 	Node<K, T>* root{ nullptr };
 	Node<K, T>* InsertToSubTree(Node<K, T>* node, K key, T value);
 	T* FindInSubTree(Node<K, T>* node, const K& key);
-	bool ContainsInSubTree(Node<K, T>* node, const K& key);
+	const T* FindInSubTree(const Node<K, T>* node, const K& key) const;
 	bool removeFromSubTree(Node<K, T>* node, const K& key);
 	void twoChildrenRemove(Node<K, T>* node, Node<K, T>* r);
 };
@@ -86,10 +86,10 @@ BinaryTree<K, T>& BinaryTree<K, T>::operator=(BinaryTree& other) noexcept
 template<typename K, typename T>
 bool BinaryTree<K, T>::Insert(const K& key, const T& value)
 {
-	if(Contains(key))
+	if(contains(key))
 		throw std::invalid_argument("Key already exists in the tree.");
 	root = InsertToSubTree(root, key, value);
-	return Contains(key);
+	return contains(key);
 }
 
 template<typename K, typename T>
@@ -123,6 +123,12 @@ T* BinaryTree<K, T>::FindInSubTree(Node<K, T>* node, const K& key)
 }
 
 template<typename K, typename T>
+const T* BinaryTree<K, T>::FindInSubTree(const Node<K, T>* node, const K& key) const
+{
+    return const_cast<T*>(const_cast<BinaryTree*>(this)->FindInSubTree(const_cast<Node<K, T>*>(node), key));
+}
+
+template<typename K, typename T>
 T* BinaryTree<K, T>::operator[](const K& key)
 {
 	return FindInSubTree(root, key);	
@@ -135,22 +141,9 @@ const T* BinaryTree<K, T>::operator[](const K& key) const
 }
 
 template<typename K, typename T>
-bool BinaryTree<K, T>::Contains(const K& key) const
+bool BinaryTree<K, T>::contains(const K& key) const
 {
-	return ContainsInSubTree(root, key);
-}
-
-template<typename K, typename T>
-bool BinaryTree<K, T>::ContainsInSubTree(Node<K, T>* node, const K& key)
-{
-    if (!node)
-        return false;
-    if(node->key == key)
-        return true;
-    else if(node->key > key)
-        return ContainsInSubTree(node->left, key);
-    else
-        return ContainsInSubTree(node->right, key);
+	return FindInSubTree(root, key) != nullptr;
 }
 
 template<typename K, typename T>
