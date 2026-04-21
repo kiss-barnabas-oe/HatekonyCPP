@@ -24,8 +24,6 @@ public:
 	bool operator<=(const Fraction& other) const;
 	bool operator>=(const Fraction& other) const;
 
-	friend std::ostream& operator<<(std::ostream& os, const Fraction& other);
-
 	friend std::istream& operator>>(std::istream& is, Fraction& other);
 
 	explicit operator int() const;	
@@ -46,6 +44,8 @@ private:
 
 	Fraction& SimplestForm();
 };
+
+std::ostream& operator<<(std::ostream& os, const Fraction& other);
 
 Fraction operator+(int number, const Fraction& other);
 Fraction operator-(int number, const Fraction& other);
