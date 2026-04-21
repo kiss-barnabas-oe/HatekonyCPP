@@ -184,7 +184,7 @@ std::ostream& operator<<(std::ostream& os, const Fraction& other)
 std::istream& operator>>(std::istream& is, Fraction& other)
 {
 	std::string s;
-	is >> s;
+	std::getline(is, s);
 
 	if (!is) return is;
 
