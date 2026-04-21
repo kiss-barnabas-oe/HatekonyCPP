@@ -8,7 +8,7 @@ class BinaryTree
 public:
 	BinaryTree() = default;
 	BinaryTree(const BinaryTree& other);
-	BinaryTree(BinaryTree&& other) noexcept;
+	BinaryTree(BinaryTree&& other) noexcept = default;
 	~BinaryTree();
 
 	BinaryTree& operator=(const BinaryTree& other);
@@ -40,12 +40,6 @@ private:
 template<typename K, typename T>
 BinaryTree<K, T>::BinaryTree(const BinaryTree& other)
 	: root{ other.root ? new Node<K, T>(*other.root) : nullptr }
-{
-}
-
-template<typename K, typename T>
-BinaryTree<K, T>::BinaryTree(BinaryTree&& other) noexcept
-	: root(other.root)
 {
 }
 
