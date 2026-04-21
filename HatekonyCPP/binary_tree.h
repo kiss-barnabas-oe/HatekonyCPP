@@ -78,7 +78,7 @@ BinaryTree<K, T>& BinaryTree<K, T>::operator=(BinaryTree& other) noexcept
 	}
 
 	root = other.root ? new Node<K, T>{ *other.root } : nullptr;
-	other.root = nullptr;
+	delete other.root;
 
 	return *this;
 }
