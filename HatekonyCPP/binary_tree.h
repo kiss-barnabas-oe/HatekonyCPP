@@ -18,7 +18,7 @@ public:
 	T* Find(const K& key) const;
 	bool Insert(const K& key, const T& value);
 	bool Contains(const K& key) const;
-	bool empty() const const;
+	bool empty() const;
 	bool remove(const K& key);
 	void twoChildrenRemove(Node<K, T>* node, Node<K, T>* r);
 
@@ -239,13 +239,13 @@ void BinaryTree<K, T>::twoChildrenRemove(Node<K, T>* node, Node<K, T>* r)
 }
 
 template<typename K, typename T>
-typename BinaryTree<K, T>::iterator begin()
+typename BinaryTree<K, T>::iterator BinaryTree<K, T>::begin()
 {
-	return iterator(root);
+	return iterator{ root };
 }
 
 template<typename K, typename T>
-typename BinaryTree<K, T>::iterator end()
+typename BinaryTree<K, T>::iterator BinaryTree<K, T>::end()
 {
-	return iterator(nullptr);
+	return iterator{ nullptr };
 }
