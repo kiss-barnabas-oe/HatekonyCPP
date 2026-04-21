@@ -12,7 +12,7 @@ public:
 	~BinaryTree();
 
 	BinaryTree& operator=(const BinaryTree& other);
-	BinaryTree& operator=(BinaryTree& other) noexcept;
+	BinaryTree& operator=(BinaryTree&& other) noexcept;
 	T* operator[](const K& key);
 	const T* operator[](const K& key) const;
 	
@@ -67,18 +67,15 @@ BinaryTree<K, T>& BinaryTree<K, T>::operator=(const BinaryTree& other)
 }
 
 template<typename K, typename T>
-BinaryTree<K, T>& BinaryTree<K, T>::operator=(BinaryTree& other) noexcept
+BinaryTree<K, T>& BinaryTree<K, T>::operator=(BinaryTree&& other) noexcept
 {
-	if (this == &other) {
+	if (this == &other)
 		return *this;
-	}
 
-	if (root) {
-		delete root;
-	}
+	delete root;
 
-	root = other.root ? new Node<K, T>{ *other.root } : nullptr;
-	delete other.root;
+	root = other.root;
+	other.root = nullptr;
 
 	return *this;
 }
