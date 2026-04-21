@@ -116,10 +116,9 @@ T* BinaryTree<K, T>::findInSubTree(Node<K, T>* node, const K& key)
         return nullptr;
     if (node->key == key)
         return &(node->value);
-    else if (node->key > key)
+    if (node->key > key)
         return findInSubTree(node->left, key);
-    else
-        return findInSubTree(node->right, key);
+    return findInSubTree(node->right, key);
 }
 
 template<typename K, typename T>
