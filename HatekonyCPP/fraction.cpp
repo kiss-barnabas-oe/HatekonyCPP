@@ -190,9 +190,8 @@ std::istream& operator>>(std::istream& is, Fraction& other)
 
 	try
 	{
-		if (s.find('/') != std::string::npos)
-		{
-			size_t pos = s.find('/');
+		if (size_t pos = s.find('/'); pos != std::string::npos)
+		{			
 			int n = std::stoi(s.substr(0, pos));
 			int d = std::stoi(s.substr(pos + 1));
 			other = Fraction(n, d);

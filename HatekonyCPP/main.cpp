@@ -107,7 +107,5 @@ int main()
     std::cout << "Give numerator and denominator: ";
     std::cin >> consolein;
 
-    std::cout << "Read Fraction from console: " << consolein << std::endl;
-
-    std::cout << Fraction::Parse("3.5") << std::endl;
+    std::cout << "Read Fraction from console: " << consolein << std::endl;    
 }
