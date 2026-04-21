@@ -45,9 +45,8 @@ BinaryTree<K, T>::BinaryTree(const BinaryTree& other)
 
 template<typename K, typename T>
 BinaryTree<K, T>::~BinaryTree()
-{
-	if(root)
-		delete root;
+{	
+	delete root;
 }
 
 template<typename K, typename T>
@@ -56,10 +55,8 @@ BinaryTree<K, T>& BinaryTree<K, T>::operator=(const BinaryTree& other)
 	if (this == &other) {
 		return *this;
 	}
-
-	if (root) {
-		delete root;
-	}
+	
+	delete root;
 
 	root = other.root ? new Node<K, T>{ *other.root } : nullptr;
 
