@@ -30,7 +30,7 @@ public:
 
 private:
 	Node<K, T>* root{ nullptr };
-	Node<K, T>* InsertToSubTree(Node<K, T>* node, K key, T value);
+	Node<K, T>* InsertToSubTree(Node<K, T>* node, K key, T value, bool& inserted);
 	T* findInSubTree(Node<K, T>* node, const K& key);
 	const T* findInSubTree(const Node<K, T>* node, const K& key) const;
 	bool removeFromSubTree(Node<K, T>* node, const K& key);
@@ -80,27 +80,28 @@ BinaryTree<K, T>& BinaryTree<K, T>::operator=(BinaryTree&& other) noexcept
 template<typename K, typename T>
 bool BinaryTree<K, T>::insert(const K& key, const T& value)
 {
-	if(contains(key))
-		throw std::invalid_argument("Key already exists in the tree.");
-	root = InsertToSubTree(root, key, value);
-	return contains(key);
+	bool inserted = false;
+	root = InsertToSubTree(root, key, value, inserted);
+	return inserted;
 }
 
 template<typename K, typename T>
-Node<K, T>* BinaryTree<K, T>::InsertToSubTree(Node<K, T>* node, K key, T value)
+Node<K, T>* BinaryTree<K, T>::InsertToSubTree(Node<K, T>* node, K key, T value, bool& inserted)
 {
-    if (node)
-    {
-        if(node->key > key)		
-            node->left = InsertToSubTree(node->left, key, value);		
-        else if(node->key < key)
-            node->right = InsertToSubTree(node->right, key, value);				
-        return node;
-    }
-    else
-    {
-        return new Node<K, T>{ key, value };
-    }
+	if (!node)
+	{
+		inserted = true;
+		return new Node<K, T>{ key, value };
+	}
+
+	if (key < node->key)	
+		node->left = InsertToSubTree(node->left, key, value, inserted);	
+	else if (key > node->key)
+		node->right = InsertToSubTree(node->right, key, value, inserted);	
+	else	
+		inserted = false;	
+
+	return node;
 }
 
 template<typename K, typename T>
