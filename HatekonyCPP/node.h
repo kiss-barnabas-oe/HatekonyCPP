@@ -5,9 +5,11 @@ struct Node
 {
 	Node(const K& key, const T& value, Node* const left = nullptr, Node* const right = nullptr);
 	Node(const Node& other);
+	Node(Node&& other) noexcept;
 	~Node();
 
 	Node& operator=(const Node& other);
+	Node& operator=(Node&& other) noexcept;
 
 	K key;
 	T value;
@@ -34,6 +36,17 @@ Node<K, T>::Node(const Node& other)
 }
 
 template<typename K, typename T>
+Node<K, T>::Node(Node&& other) noexcept
+	: key(std::move(other.key))
+	, value(std::move(other.value))
+	, left(other.left)
+	, right(other.right)
+{
+	other.left = nullptr;
+	other.right = nullptr;
+}
+
+template<typename K, typename T>
 Node<K, T>::~Node()
 {
 	delete left;
@@ -55,5 +68,25 @@ Node<K, T>& Node<K, T>::operator=(const Node& other)
 		delete right;
 	right = other.right ? new Node(*other.right) : nullptr;
 	
+	return *this;
+}
+
+template<typename K, typename T>
+Node<K, T>& Node<K, T>::operator=(Node&& other) noexcept
+{
+	if (this == &other)
+		return *this;
+
+	delete left;
+	delete right;
+
+	key = std::move(other.key);
+	value = std::move(other.value);
+	left = other.left;
+	right = other.right;
+
+	other.left = nullptr;
+	other.right = nullptr;
+
 	return *this;
 }
