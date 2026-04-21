@@ -20,7 +20,6 @@ public:
 	bool Contains(const K& key) const;
 	bool empty() const;
 	bool remove(const K& key);
-	void twoChildrenRemove(Node<K, T>* node, Node<K, T>* r);
 
 	void clear();
 
@@ -35,6 +34,7 @@ private:
 	T* FindInSubTree(Node<K, T>* node, const K& key);
 	bool ContainsInSubTree(Node<K, T>* node, const K& key);
 	bool removeFromSubTree(Node<K, T>* node, const K& key);
+	void twoChildrenRemove(Node<K, T>* node, Node<K, T>* r);
 };
 
 template<typename K, typename T>
