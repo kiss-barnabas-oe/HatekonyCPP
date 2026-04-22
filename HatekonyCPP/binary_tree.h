@@ -33,8 +33,8 @@ private:
 	Node<K, T>* InsertToSubTree(Node<K, T>* node, K key, T value, bool& inserted);
 	T* findInSubTree(Node<K, T>* node, const K& key);
 	const T* findInSubTree(const Node<K, T>* node, const K& key) const;
-	bool removeFromSubTree(Node<K, T>* node, const K& key);
-	void twoChildrenRemove(Node<K, T>* node, Node<K, T>* r);
+	Node<K, T>* removeFromSubTree(Node<K, T>* node, const K& key);
+	Node<K, T>* twoChildrenRemove(Node<K, T>* node, Node<K, T>* r);
 };
 
 template<typename K, typename T>
@@ -168,7 +168,7 @@ bool BinaryTree<K, T>::remove(const K& key)
 }
 
 template<typename K, typename T>
-bool BinaryTree<K, T>::removeFromSubTree(Node<K, T>* node, const K& key)
+Node<K, T>* BinaryTree<K, T>::removeFromSubTree(Node<K, T>* node, const K& key)
 {
 	if(node == nullptr)
 		throw std::invalid_argument("Key not found in the tree.");
@@ -199,7 +199,7 @@ bool BinaryTree<K, T>::removeFromSubTree(Node<K, T>* node, const K& key)
 }
 
 template<typename K, typename T>
-void BinaryTree<K, T>::twoChildrenRemove(Node<K, T>* node, Node<K, T>* r)
+Node<K, T>* BinaryTree<K, T>::twoChildrenRemove(Node<K, T>* node, Node<K, T>* r)
 {
 	if (r->right != nullptr)
 	{

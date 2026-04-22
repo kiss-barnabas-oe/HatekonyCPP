@@ -133,6 +133,7 @@
     <ClInclude Include="binary_tree.h" />
     <ClInclude Include="binary_tree_iterator.h" />
     <ClInclude Include="node.h" />
+    <ClInclude Include="stack.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
