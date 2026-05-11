@@ -97,10 +97,8 @@ Fraction Fraction::operator/(const Fraction& other) const
 
 Fraction& Fraction::operator/=(const Fraction& other)
 {
-	if (other.numerator == 0)
-		throw std::invalid_argument("Division by zero");
-	numerator *= other.denominator;
-	denominator *= other.numerator;
+	Fraction reciprocal(other.denominator, other.numerator);
+	*this *= reciprocal;
 	SimplestForm();
 	return *this;
 }
